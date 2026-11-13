@@ -44,8 +44,8 @@ npm run prettier:verify
 
 ## Claude Code setup (`.claude/`)
 
-- `settings.json`: read-only and test `sf`/`npm` commands are pre-allowed; deploys, retrieves, anonymous Apex, data writes, and org create/delete always ask first.
-- `/deploy [path]`: preview, then validate, then deploy (only after confirmation). `/apex-test [Class]`: run Apex tests and summarize.
+- `settings.json`: permission lists (`allow`/`ask`/`deny`) are currently **empty** — no commands or MCP tools are pre-allowed or forced to ask. Behavior depends on the session's permission mode (default mode prompts for anything not allowed; auto mode uses a classifier).
+- `/deploy [path]` (skill, user-invoked only via `disable-model-invocation`): preview, then validate, then deploy (only after confirmation). `/apex-test [Class]` (skill): run Apex tests and summarize.
 - `apex-reviewer` subagent: review Apex for governor limits, bulkification, sharing, and CRUD/FLS problems.
 - `settings.local.json` is gitignored and holds personal overrides.
 
