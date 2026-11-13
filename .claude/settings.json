@@ -1,8 +1,26 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
-    "allow": [],
-    "ask": [],
-    "deny": []
+    "allow": ["Bash(npm run lint)", "Bash(sf org list)"],
+    "deny": ["Bash(sf data delete:*)"],
+    "ask": ["Bash(git push:*)", "Bash(sf project deploy start:*)"]
+  },
+  "autoMode": {
+    "allow": [
+      "$defaults",
+      "Salesforce Read-Only: `sf org list`, `sf data query`, `sf project retrieve start`, `sf project deploy start --dry-run`, and `sf apex run test` against the default `asoc` org are allowed.",
+      "Salesforce Deploy to Dev Org: `sf project deploy start` to the default `asoc` org is allowed when the user asked for a deploy (e.g. via /deploy)."
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Salesforce Production Deploy: Deploying to, or running `sf data` write/delete or anonymous Apex against, any org other than the default `asoc` org or any org marked production.",
+      "Salesforce Data Deletion: `sf data delete`, `sf data bulk delete`, or Apex that runs DML delete/purge on org data."
+    ],
+    "environment": [
+      "$defaults",
+      "Trusted repo: https://github.com/Abhishek-Saxena-Online-Content/asoc (private)",
+      "Salesforce: the default target org alias `asoc` is a development org. Any org whose alias, username, or instance name contains `prod` or `production` is a production target.",
+      "Salesforce CLI (`sf`) is the org-specific CLI for deploys, retrieves, Apex runs, and data queries"
+    ]
   }
 }
